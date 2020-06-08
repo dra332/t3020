@@ -13,11 +13,11 @@ import sys
 # python3 datamunger.py see.csv
 # gets data from same directory
 
-origin=sys.argv[1]
+origin= sys.argv[1]
 
 def calc_total(curr):
     computed=0
-    for c in curr[2:9]: #E1
+    for c in curr[1:9]: #changed to include correct index
         computed=computed+c
     return computed
 
@@ -25,19 +25,22 @@ def calc_total(curr):
 def check_monotonic(prev,curr):
    # Now check monotonicity and update  prev so next time round we compare
    # against this row
+    result = ""
     for i in range(9):
-        if curr[i] <=  prev[i]:  #E2
-            print("Monotonic error at column %d comparing lines %d and %d  "%(i,n-1,n),
+        if curr[i] <  prev[i]:  #changed to only be less than
+            result = ("Monotonic error at column %d comparing lines %d and %d "%(i,n-1,n) +
                      "values %d and %d"%(curr[i],prev[i]))
-        prev[i]=curr[i]  
+            print (str(result))
+        prev[i]=curr[i]
+    return result  
 
 
 def check_row(n, prev, curr_str):
     data = []
     curr = []
-    for d in curr_str: #E3
+    for d in range(len(curr_str)-1): #changed to exclude the OTHER column value from missing data check
         try:
-            v = int(d)
+            v = int(curr_str[d])
             curr.append(v)
         except ValueError:  # missing data so can't convert
             return False
@@ -45,7 +48,7 @@ def check_row(n, prev, curr_str):
     if computed != curr[0]:
         print("Sum error at line ",n, curr_str,
               "computed %d and expected %d"%(computed, curr[0]))
-    check_monotonic(prev, curr)
+    temp = check_monotonic(prev, curr)
     return True # if there all data was there
 
 
