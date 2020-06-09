@@ -21,3 +21,7 @@ Note, however, there is some missing data in some of the rows. The first few lin
 ### Errors
 
 There are three deliberate errors, marked E1, E2 and E3. Finding other (non-deliberate and unknown to me)  errors will get a bonus -- clearly add below this line in your copy of the README what the errors are and how you fixed them.
+
+E1: Error was the incorrect index. Changed this to the correct one (from 2-9 to 1-9)
+E2: Error was incorrect operator. Monotonicity allows for the current value to equal the previous. Only an error of it is less than. (Changed <= to just <)
+E3: Error was the check for missing data included the OTHER column. This was not necessary for the program. Changed the loop to run one fewer times. 
